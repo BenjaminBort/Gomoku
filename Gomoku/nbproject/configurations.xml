@@ -4,6 +4,10 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Exception.hpp</itemPath>
+      <itemPath>Gomoku.hpp</itemPath>
+      <itemPath>Graphic.hpp</itemPath>
+      <itemPath>Player.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,7 +16,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Exception.cpp</itemPath>
       <itemPath>Gomoku.cpp</itemPath>
+      <itemPath>Graphic.cpp</itemPath>
+      <itemPath>Player.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -36,8 +43,28 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <commandLine>-Wall -Werror -Wextra</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lSDL -lSDL_image -ldl</commandLine>
+        </linkerTool>
       </compileType>
+      <item path="Exception.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Exception.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Gomoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Gomoku.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Graphic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Graphic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Player.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -62,7 +89,21 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Exception.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Exception.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Gomoku.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Gomoku.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Graphic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Graphic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Player.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
