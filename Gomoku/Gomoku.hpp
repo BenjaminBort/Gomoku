@@ -24,12 +24,16 @@ public:
     Gomoku();
     ~Gomoku();
     const std::vector<t_flag>& getMap() const {return _map;}
+    int getWinner() const {return _winner;}
     int createPlayer(const int &);
+    
+    void setWinner(const int& t) {_winner = t;}
        
 protected:
     std::vector<t_flag> _map;
     Player *playerOne;
     Player *playerTwo;
+    int _winner;
 };
 
 #endif	/* GOMOKU_HPP */

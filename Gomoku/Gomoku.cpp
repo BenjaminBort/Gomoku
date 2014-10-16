@@ -6,6 +6,7 @@ Gomoku::Gomoku() {
     for (int row = 0; row != 361 ; ++row) {
         _map.push_back(FREE);
     }
+    _winner = 0;
 }
 
 Gomoku::~Gomoku() {

@@ -10,7 +10,7 @@
 int main() {
     try {
         Graphic graph;
-        graph.launchGame();
+        graph.handleGame();
     }
     catch (MyException& e) {
         std::cerr << "\033[1;31;31m" << e.where () << e.what () << "\033[0m" << std::endl;

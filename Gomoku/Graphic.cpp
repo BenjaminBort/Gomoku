@@ -10,11 +10,15 @@ Graphic::~Graphic() {
     delete game;
 }
 
-int Graphic::getKey() const {
+int Graphic::getKey() {
     while (SDL_PollEvent(_event)) {
         switch (_event->type) {
             case SDL_QUIT:
                 return ESCAPE;
+            case SDL_MOUSEBUTTONUP:
+                clicX = _event->button.x;
+                clicY = _event->button.y;
+                return CLIC;
             case SDL_KEYDOWN:
                 switch (_event->key.keysym.sym) {
                     case SDLK_UP:
@@ -23,7 +27,7 @@ int Graphic::getKey() const {
                         return DOWN;
                     case SDLK_ESCAPE:
                         return ESCAPE;
-                    case SDLK_INSERT:
+                    case SDLK_SPACE:
                         return ENTER;
                     default:
                         break;
@@ -51,41 +55,24 @@ void Graphic::displayMap(std::vector<t_flag> map) {
     }
 }
 
-void Graphic::launchGame() {
-    if (game->createPlayer(launchMenu()) == -1)
-        return ;
-    
+void Graphic::handleGame() {
+    while (game->createPlayer(launchMenu()) != -1)
+        launchGame();    
 }
 
 void Graphic::displayMenu(const int& active) {
-    SDL_Rect rect;
-    SDL_Rect rect2;
-    SDL_Rect rect3;
-    rect.x = 125;
-    rect.y = 250;
-    rect.h = 100;
-    rect.w = 500;
-    rect2.x = 125;
-    rect2.y = 400;
-    rect2.h = 100;
-    rect2.w = 500;
-    rect3.x = 125;
-    rect3.y = 550;
-    rect3.h = 100;
-    rect3.w = 500;
-    if (active == 1)
-        SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 255, 255, 255));
-    else
-        SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 0, 0, 255));
-    if (active == 2)
-        SDL_FillRect(_screen, &rect2, SDL_MapRGB(_screen->format, 255, 255, 255));
-    else
-        SDL_FillRect(_screen, &rect2, SDL_MapRGB(_screen->format, 0, 0, 255));
-    if (active == 3)
-        SDL_FillRect(_screen, &rect3, SDL_MapRGB(_screen->format, 255, 255, 255));
-    else
-        SDL_FillRect(_screen, &rect3, SDL_MapRGB(_screen->format, 0, 0, 255));
-        
+    for (int i = 0; i != 3 ; i++) {
+        SDL_Rect rect;
+        rect.x = 125;
+        rect.y = 250 + i * 150;
+        rect.h = 100;
+        rect.w = 500;
+        if (active == i + 1)
+            SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 255, 255, 255));
+        else
+            SDL_FillRect(_screen, &rect, SDL_MapRGB(_screen->format, 0, 0, 255));
+        SDL_Flip(_screen);
+    }
 }
 
 void Graphic::activeUpdate(int *active) {
@@ -124,7 +111,60 @@ int Graphic::launchMenu() {
             return -1;
         activeUpdate(&active);
         displayMenu(active);
-        SDL_Flip(_screen);
+        SDL_Delay(200);        
+    }
+}
+
+void Graphic::drawLine() {
+    SDL_Rect rect[19 + 19];
+    
+    for (int i = 0; i != 19 + 19; i++) {
+        if (i < 19) {
+            rect[i].x = 75 - 1;
+            rect[i].y = 74 + (i * BLOCK_SIZE) - 1;
+            rect[i].w = BLOCK_SIZE * 19;
+            rect[i].h = 1;
+            std::cout << i << std::endl;
+        }
+        else {
+            rect[i].x = 75 + ((i - 19) * BLOCK_SIZE) - 1;
+            rect[i].y = 75 - 1;
+            rect[i].w = 1;
+            rect[i].h = BLOCK_SIZE * 19;            
+        }
+        SDL_FillRect(_screen, &(rect[i]), SDL_MapRGB(_screen->format, 0, 0, 0));
+    }
+    SDL_Flip(_screen);
+}
+
+void Graphic::drawSquare() {
+    std::vector<t_flag> map = game->getMap();
+    int cpt = 0;
+    SDL_Rect rect[19 * 19];
+    
+    for (std::vector<t_flag>::iterator it = map.begin(); it != map.end(); ++it) {
+        rect[cpt].x = 75 + ((cpt % 19) * BLOCK_SIZE);
+        rect[cpt].y = 75 + ((cpt / 19) * BLOCK_SIZE);
+        rect[cpt].h = BLOCK_SIZE;
+        rect[cpt].w = BLOCK_SIZE;
+        SDL_FillRect(_screen, &(rect[cpt]), SDL_MapRGB(_screen->format, 255, 255, 255));
+        cpt++;
+    }
+    drawLine();
+    SDL_Flip(_screen);
+}
+
+void Graphic::launchGame() {
+    int key;
+    while (game->getWinner() == 0) {
+        drawSquare();
+        key = getKey();
+        if (key == ESCAPE)
+            return;
+        
         SDL_Delay(200);
     }
 }
+
+
+

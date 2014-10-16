@@ -15,7 +15,7 @@
 #define BLOCK_SIZE 32
 
 enum keyType {
-    UP, DOWN, LEFT, RIGHT, ENTER, ESCAPE
+    UP, DOWN, LEFT, RIGHT, ENTER, ESCAPE, CLIC
 };
 
 class Graphic {
@@ -23,19 +23,23 @@ public:
     Graphic();
     ~Graphic();
     void displayMap(std::vector<t_flag> map);
+    void handleGame();
     void launchGame();
 
 private:
     int launchMenu();
-    int getKey() const;
+    int getKey();
     void displayMenu(const int&);
     void activeUpdate(int*);
+    void drawSquare();
+    void drawLine();
     Gomoku *game;
     SDL_Event *_event;
     int _height;
     int _width;
     SDL_Surface *_screen;
-    
+    int clicX;
+    int clicY;
 };
 
 #endif	/* GRAPHIC_HPP */

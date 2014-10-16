@@ -19,6 +19,7 @@ public:
 
 private:
     t_tplayer playerType;
+    int nbPion;
 };
 
 #endif	/* PLAYER_HPP */
