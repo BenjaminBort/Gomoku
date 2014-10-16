@@ -5,13 +5,16 @@
  * Created on October 15, 2014, 11:06 AM
  */
 
-#include <iostream>
+#include "Graphic.hpp"
 
-/*
- * 
- */
-int main(int argc, char** argv) {
-    int i;
+int main() {
+    try {
+        Graphic graph;
+        graph.launchGame();
+    }
+    catch (MyException& e) {
+        std::cerr << "\033[1;31;31m" << e.where () << e.what () << "\033[0m" << std::endl;
+    }
     return 0;
 }
 
